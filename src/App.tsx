@@ -1,9 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
+import Sidebar from "./component/sidebar/Sidebar";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      {/* side bar */}
+      <Sidebar />
+    </div>
+  );
 }
 
 export default App;
