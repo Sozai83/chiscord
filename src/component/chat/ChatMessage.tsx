@@ -1,19 +1,32 @@
 import React from "react";
 import "./ChatMessage.scss";
 import { Avatar } from "@mui/material";
+import { Timestamp } from "firebase/firestore";
 
-type Props = {};
+type Props = {
+  message: string;
+  timestamp: Timestamp;
+  user: null | {
+    uid: string;
+    photo: string;
+    email: string;
+    displayName: string;
+  };
+};
 
 const ChatMessage = (props: Props) => {
+  const { message, timestamp, user } = props;
   return (
     <div className="message">
-      <Avatar />
+      <Avatar src={user?.photo} />
       <div className="messageInfo">
         <h4>
-          Chicord
-          <span className="messageTimestamp">Message timestamp</span>
+          {user?.displayName}
+          <span className="messageTimestamp">
+            {new Date(timestamp?.toDate()).toLocaleString()}
+          </span>
         </h4>
-        <p>Message</p>
+        <p>{message}</p>
       </div>
     </div>
   );
