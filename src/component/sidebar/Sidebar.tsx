@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarChannel from "./SidebarChannel";
 import "./Sidebar.scss";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -9,19 +9,33 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { auth, db } from "../../firebase";
 import { useAppSelector } from "../../app/hooks";
 // import { collection, query } from "firebase/firestore/lite";
-import { onSnapshot, collection, query } from "firebase/firestore";
+import {
+  onSnapshot,
+  collection,
+  query,
+  DocumentData,
+} from "firebase/firestore";
+
+interface Channel {
+  id: string;
+  channel: DocumentData;
+}
 
 const Sidebar = () => {
   const user = useAppSelector((state) => state.user);
+  const [channels, setChannels] = useState<Channel[]>([]);
 
   const q = query(collection(db, "channels"));
   useEffect(() => {
     onSnapshot(q, (querySnapshot) => {
-      const channelsResult = [];
-      querySnapshot.forEach((doc) => {
-        console.log(doc);
-        channelsResult.push(doc.data().name);
+      const channelsResult: Channel[] = [];
+      querySnapshot.docs.forEach((doc) => {
+        channelsResult.push({
+          id: doc.id,
+          channel: doc.data().channelName,
+        });
       });
+      setChannels(channelsResult);
     });
   }, []);
 
@@ -53,9 +67,15 @@ const Sidebar = () => {
           </div>
 
           <div className="sidebarChannelList">
-            <SidebarChannel />
-            <SidebarChannel />
-            <SidebarChannel />
+            {channels.map((channel) => {
+              return (
+                <SidebarChannel
+                  channel={channel}
+                  id={channel.id}
+                  key={channel.id}
+                />
+              );
+            })}
           </div>
 
           <div className="sidebarFooter">
