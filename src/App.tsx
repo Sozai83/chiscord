@@ -12,13 +12,11 @@ import { fallbackRender } from "./utils/ErrorFallback";
 
 function App() {
   const user = useAppSelector((state) => state.user);
-  // console.log(user);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     auth.onAuthStateChanged((loginUser) => {
-      console.log(loginUser);
       if (loginUser) {
         dispatch(
           login({
