@@ -4,3 +4,6 @@ import userReducer from "./../features/userSlice";
 export const store = configureStore({
   reducer: userReducer,
 });
+
+export type appDispatch = typeof store.dispatch;
+export type Rootstate = ReturnType<typeof store.getState>;
