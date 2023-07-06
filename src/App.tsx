@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
-import { useSelector } from "react-redux";
+import { AnyIfEmpty, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import Sidebar from "./component/sidebar/Sidebar";
 import Chat from "./component/chat/Chat";
@@ -12,6 +12,10 @@ import { fallbackRender } from "./utils/ErrorFallback";
 
 function App() {
   const user = useAppSelector((state) => state.user.user);
+  const [hideChannelList, setHideChannelList] = useState(true);
+  const setHideChannelListHandler = (state: any) => {
+    setHideChannelList(state);
+  };
 
   const dispatch = useAppDispatch();
 
@@ -38,12 +42,25 @@ function App() {
         <>
           <ErrorBoundary FallbackComponent={fallbackRender}>
             {/* side bar */}
-            <Sidebar />
+            <Sidebar
+              hideChannelList={hideChannelList}
+              setHideChannelListHandler={setHideChannelListHandler}
+            />
           </ErrorBoundary>
 
           {/* Home Chat */}
-          <div className="chat">
-            <Chat />
+          <div
+            className="chat"
+            onClick={() => {
+              if (!hideChannelList) {
+                setHideChannelListHandler(true);
+              }
+            }}
+          >
+            <Chat
+              hideChannelList={hideChannelList}
+              setHideChannelListHandler={setHideChannelListHandler}
+            />
           </div>
         </>
       ) : (

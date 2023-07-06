@@ -11,9 +11,12 @@ import useCollection from "../../hooks/useCollection";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 
-type Props = {};
+type Props = {
+  setHideChannelListHandler: any;
+};
 
 const SidebarChannelList = (props: Props) => {
+  const { setHideChannelListHandler } = props;
   const user = useAppSelector((state) => state.user.user);
   const { documents: channels } = useCollection("channels");
   const addChannel = async () => {
@@ -48,6 +51,7 @@ const SidebarChannelList = (props: Props) => {
                 channel={channel}
                 id={channel.id}
                 key={channel.id}
+                setHideChannelListHandler={setHideChannelListHandler}
               />
             );
           })}

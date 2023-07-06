@@ -10,10 +10,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 type Props = {
   channelName: string | null;
+  setHideChannelListHandler: any;
 };
 
 const ChatHeader = (props: Props) => {
-  const { channelName } = props;
+  const { channelName, setHideChannelListHandler } = props;
+  const openChatLists = () => {
+    setHideChannelListHandler(false);
+  };
 
   return (
     <div className="chatHeader">
@@ -38,7 +42,7 @@ const ChatHeader = (props: Props) => {
       </div>
       <div className="chatHeaderMobile">
         <div className="chatHeaderLeft">
-          <MenuIcon />
+          <MenuIcon onClick={openChatLists} />
           <h3>
             <span className="chatHeaderHash">#</span>
             {channelName}

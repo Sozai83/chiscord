@@ -33,7 +33,13 @@ interface Messages {
   };
 }
 
-const Chat = () => {
+type Props = {
+  hideChannelList: boolean;
+  setHideChannelListHandler: any;
+};
+
+const Chat = (props: Props) => {
+  const { setHideChannelListHandler, hideChannelList } = props;
   const channelName = useAppSelector((state) => state.channel.channelName);
   const channelId = useAppSelector((state) => state.channel.channelId);
   const user = useAppSelector((state) => state.user.user);
@@ -67,9 +73,12 @@ const Chat = () => {
   };
 
   return (
-    <div className="chat">
+    <div className={`chat ${hideChannelList ? "" : "hidden"}`}>
       {/* Chat header */}
-      <ChatHeader channelName={channelName} />
+      <ChatHeader
+        channelName={channelName}
+        setHideChannelListHandler={setHideChannelListHandler}
+      />
       {/* Chat message */}
       <div className="chatMessage">
         {messages.map((message, index) => (

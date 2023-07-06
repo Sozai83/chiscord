@@ -67,6 +67,10 @@
       display: flex;
       align-items: center;
       gap: 13px;
+
+      .MuiSvgIcon-root {
+        cursor: pointer;
+      }
     }
 
     .chatHeaderRight {

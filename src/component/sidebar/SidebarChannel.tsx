@@ -7,23 +7,25 @@ import { setChannelInfo } from "../../features/channelSlice";
 type Props = {
   id: string;
   channel: DocumentData;
+  setHideChannelListHandler: any;
 };
 
 const SidebarChannel = (props: Props) => {
-  const { id, channel } = props;
+  const { id, channel, setHideChannelListHandler } = props;
   const dispatch = useAppDispatch();
 
   return (
     <div
       className="sidebarChannel"
-      onClick={() =>
+      onClick={() => {
         dispatch(
           setChannelInfo({
             channelId: id,
             channelName: channel.channel,
           })
-        )
-      }
+        );
+        setHideChannelListHandler(true);
+      }}
     >
       <h4>
         <span className="sidebarChannelHash">#</span>

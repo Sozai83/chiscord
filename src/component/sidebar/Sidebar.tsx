@@ -8,7 +8,13 @@ import { addDoc, collection } from "firebase/firestore";
 import SidebarChannelList from "./SidebarChannelList";
 // import { collection, query } from "firebase/firestore/lite";
 
-const Sidebar = () => {
+type Props = {
+  hideChannelList: boolean;
+  setHideChannelListHandler: any;
+};
+
+const Sidebar = (props: Props) => {
+  const { hideChannelList, setHideChannelListHandler } = props;
   return (
     <div className="sidebar">
       {/* sidebarLeft */}
@@ -21,7 +27,11 @@ const Sidebar = () => {
         </div>
       </div>
       {/* sidebarRight */}
-      <SidebarChannelList />
+      <div className={`sidebarRight ${hideChannelList ? "hidden" : ""}`}>
+        <SidebarChannelList
+          setHideChannelListHandler={setHideChannelListHandler}
+        />
+      </div>
     </div>
   );
 };
