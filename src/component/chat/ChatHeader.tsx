@@ -6,6 +6,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import HelpIcon from "@mui/icons-material/Help";
+import MenuIcon from "@mui/icons-material/Menu";
 
 type Props = {
   channelName: string | null;
@@ -16,22 +17,37 @@ const ChatHeader = (props: Props) => {
 
   return (
     <div className="chatHeader">
-      <div className="chatHeaderLeft">
-        <h3>
-          <span className="chatHeaderHash">#</span>
-          {channelName}
-        </h3>
-      </div>
-      <div className="chatHeaderRight">
-        <NotificationsIcon />
-        <PushPinIcon />
-        <PeopleAltIcon />
-        <div className="chatHeaderSearch">
-          <input type="text" placeholder="Search" />
-          <SearchIcon />
+      <div className="chatHeaderDesktop">
+        <div className="chatHeaderLeft">
+          <h3>
+            <span className="chatHeaderHash">#</span>
+            {channelName}
+          </h3>
         </div>
-        <SendIcon />
-        <HelpIcon />
+        <div className="chatHeaderRight">
+          <NotificationsIcon />
+          <PushPinIcon />
+          <PeopleAltIcon />
+          <div className="chatHeaderSearch">
+            <input type="text" placeholder="Search" />
+            <SearchIcon />
+          </div>
+          <SendIcon />
+          <HelpIcon />
+        </div>
+      </div>
+      <div className="chatHeaderMobile">
+        <div className="chatHeaderLeft">
+          <MenuIcon />
+          <h3>
+            <span className="chatHeaderHash">#</span>
+            {channelName}
+          </h3>
+        </div>
+        <div className="chatHeaderRight">
+          <SearchIcon />
+          <PeopleAltIcon />
+        </div>
       </div>
     </div>
   );
